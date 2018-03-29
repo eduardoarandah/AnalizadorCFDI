@@ -2,6 +2,9 @@
 
 Crear un resumen de los XML de los CFDI del SAT fácil de copiar a Excel.
 
+![ejemplo1](https://user-images.githubusercontent.com/4065733/38106353-f1a258be-334b-11e8-98ac-6206ddacb1ae.png)
+
+
 # Desarrollo
 
 Este sistema extrae los siguientes campos del XML:
