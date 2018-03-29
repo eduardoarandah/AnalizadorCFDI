@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Analizar CFDIs</title>
+        <meta name="description" content="Analizar CFDIs">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">        
+    </head>
+    <body>
+        <div class="container">
+
+        <h1>Analizar CFDIs</h1>
+
+            <div id="app">
+                <div id="drop" class="dropfiles margenb" ref="drop">Arrastra los archivos XML aquí</div>
+
+                <div class="row">
+                    <div class="col-sm">
+                        <table class="table table-striped table-bordered table-hover margenb" id="totales" ref="totales" style="width:320px">
+                            <tbody>
+                                <tr><th>Cantidad</th><td>{{cantidad}}</td></tr>
+                                <tr><th>Total</th><td>${{total_suma.toFixed(2)}}</td></tr>
+                                <tr><th>Impuestos Trasladados</th><td>${{total_impuestos_trasladados.toFixed(2)}}</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm">
+                        <div v-if="errores.length" class="alert alert-warning">
+                            <h3>Errores:</h3>
+                            <ul>
+                                <li v-for="error in errores">{{error.archivo}}: {{error.mensaje}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table table-striped table-bordered table-hover" id="tabla" ref="tabla">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Rfc</th>
+                            <th>Nombre</th>
+                            <th>Conceptos</th>
+                            <th>Total</th>
+                            <th>Imp Trasladados</th>
+                            <th>Archivo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="cfdi in cfdis">
+                            <td>{{cfdi.fecha}}</td>
+                            <td>{{cfdi.rfc}}</td>
+                            <td>{{cfdi.nombre}}</td>
+                            <td>
+                                <div v-for="concepto in cfdi.conceptos" class="concepto">
+                                    {{concepto.cantidad}}
+                                    {{concepto.descripcion}}
+                                    ${{concepto.importe.toFixed(2)}}
+                                </div>
+                            </td>
+                            <td>{{total(cfdi).toFixed(2)}}</td>
+                            <td>{{cfdi.totalimpuestostrasladados.toFixed(2)}}</td>
+                            <td>{{cfdi.archivo}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                  <!-- {{ message }} -->
+                  <!-- <pre>{{$data }}</pre> -->
+            </div>
+        </div> <!-- container -->
+
+        <!-- jquery -->
+        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+        
+        <!-- vue -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+
+        <script src="js/cargarxml.js"></script>
+        <script src="js/main.js"></script>
+
+    </body>
+</html>
