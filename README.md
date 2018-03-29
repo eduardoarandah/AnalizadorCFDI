@@ -20,9 +20,9 @@ Este sistema extrae los siguientes campos del XML:
 - Total
 - Total Impuestos Trasladados
 
-# Para analizar los CFDI
+# Para descargar los CFDI
 
-Puedes usar la herramienta [Analizador CFDI](https://github.com/eduardoarandah/AnalizadorCFDI)
+Puedes usar la herramienta [Descarga Masiva CFDI](https://github.com/eduardoarandah/DescargaMasivaCFDI)
 
 
 **Contáctame si necesitas ayuda:** 
