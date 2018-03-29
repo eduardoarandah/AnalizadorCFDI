@@ -20,12 +20,18 @@ Este sistema extrae los siguientes campos del XML:
 - Total
 - Total Impuestos Trasladados
 
-**Importante** 
+# Para analizar los CFDI
 
-Seguramente hay otros campos importantes por extraer del XML, pero no tengo ejemplos a la mano. 
+Puedes usar la herramienta [Analizador CFDI](https://github.com/eduardoarandah/AnalizadorCFDI)
 
-Contáctame si necesitas ayuda: 
 
-![Eduardo Aranda](https://es.gravatar.com/userimage/8114274/0cff94afc2f748b5da1096e10cf54ef0.jpeg) 
+**Contáctame si necesitas ayuda:** 
 
 eduardoarandah@gmail.com
+
+**Si deseas contribuir al desarrollo**
+
+Puedes hacerlo via paypal en el siguiente enlace
+[https://eduardoarandah.github.io/](https://eduardoarandah.github.io/)
+
+![donar](https://user-images.githubusercontent.com/4065733/38109725-587af320-3356-11e8-941a-7215489a9286.png)
