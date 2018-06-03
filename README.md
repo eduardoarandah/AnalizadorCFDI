@@ -2,6 +2,10 @@
 
 Crear un resumen de los XML de los CFDI del SAT fácil de copiar a Excel.
 
+Arrastra los archivos XML del SAT a la pantalla y obtén un resumen del contenido de cada archivo
+
+**Nota: El sistema no envía tus XML a ningún lugar, por lo que tu privacidad está garantizada**
+
 ## Cómo usar
 
 **Para usar [click aquí](https://analizador-cfdi.netlify.com)**
