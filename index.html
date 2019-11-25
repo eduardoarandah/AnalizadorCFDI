@@ -70,6 +70,10 @@
                                     {{concepto.cantidad}}
                                     {{concepto.descripcion}}
                                     ${{concepto.importe.toFixed(2)}}
+                                  <span v-for="traslado in concepto.traslados" class="traslado">
+                                      {{traslado.tipo}}
+                                      {{traslado.tasa}}
+                                  </span>
                                 </div>
                             </td>
                             <td>{{total(cfdi).toFixed(2)}}</td>
@@ -165,8 +169,8 @@
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script> -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
 
-        <script src="js/cargarxml.js"></script>
-        <script src="js/main.js"></script>
+        <script src="js/cargarxml.js?v=1.1"></script>
+        <script src="js/main.js?v=1.1"></script>
 
     </body>
 </html>
