@@ -1,0 +1,11 @@
+.DS_Store
+node_modules
+vendor
+*.log
+deploy
+
+prompt.md
+plan.md
+tmp.md
+tmp.sql
+xmls

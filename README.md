@@ -13,16 +13,44 @@ Arrastra los archivos XML del SAT a la pantalla y obtén un resumen del contenid
 ![ejemplo1](https://user-images.githubusercontent.com/4065733/38106353-f1a258be-334b-11e8-98ac-6206ddacb1ae.png)
 
 
+# Qué muestra
+
+**Resumen** (separado por tipo de comprobante, porque las columnas que importan son distintas en una factura y en un complemento de pago):
+
+- Totales por moneda: SubTotal, Descuento, Impuestos trasladados, Impuestos retenidos, Total
+- Impuestos trasladados y retenidos agrupados por impuesto, tipo de factor y tasa (base e importe)
+- Impuestos locales
+- Conceptos agrupados por ClaveProdServ / NoIdentificacion / Descripción, con cantidad, importe, descuento e impuestos
+- Totales por emisor y por receptor
+- Complementos de pago: montos por moneda y forma de pago, impuestos del pago y documentos relacionados
+
+**Lista de comprobantes**: un renglón por XML y, al hacer click en *ver detalle*, se muestra
+**toda** la información del XML (Comprobante, Emisor, Receptor, Conceptos, Impuestos y
+Complemento) en tablas generadas de forma recursiva. Los códigos del SAT se muestran con su
+descripción (por ejemplo `03 — Transferencia electrónica de fondos`).
+
+Si un XML trae elementos que el analizador no conoce, se muestran igual y se avisa con el mensaje
+*"no se reconocen los siguientes datos"*.
+
+Todas las tablas tienen un botón **Copiar** que las deja en el portapapeles listas para pegar en Excel.
+
 # Desarrollo
 
-Este sistema extrae los siguientes campos del XML:
+Vite + React + TypeScript + Tailwind CSS, gestionado con `pnpm`.
 
-- Fecha
-- Rfc
-- Nombre
-- Conceptos
-- Total
-- Total Impuestos Trasladados
+- `src/lib/catalogos.ts` catálogos del SAT y lista de elementos conocidos
+- `src/lib/parser.ts` lectura del XML con `DOMParser`
+- `src/lib/resumen.ts` agrupaciones y sumas
+- `src/lib/formato.ts` utilerías (formato de números, copiar al portapapeles, lectura de archivos)
+- `src/components/` componentes de React
+- `src/App.tsx` componente principal
+
+```
+pnpm install
+pnpm dev       # servidor de desarrollo
+pnpm build     # compila a la carpeta deploy/
+pnpm preview   # sirve el build de deploy/ localmente
+```
 
 # Para descargar los CFDI
 
