@@ -25,7 +25,7 @@ function agrupar<F, G>(filas: F[], llave: (f: F) => string, inicial: (f: F) => G
 }
 
 /** Impuestos (traslados o retenciones) agrupados por impuesto, factor y tasa. */
-function agruparImpuestos(filas: Impuesto[]): ImpuestoAgrupado[] {
+export function agruparImpuestos(filas: Impuesto[]): ImpuestoAgrupado[] {
   return agrupar<Impuesto, ImpuestoAgrupado>(
     filas,
     (f) => f.impuesto + '|' + f.tipoFactor + '|' + f.tasa,

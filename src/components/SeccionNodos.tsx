@@ -14,7 +14,16 @@ const ATRIBUTOS_TRUNCADOS: Record<string, boolean> = {
  * recursivamente a sus hijos. Sirve para cualquier elemento, incluso los
  * que no conocemos.
  */
-export function SeccionNodos({ nodos, titulo }: { nodos: Nodo[]; titulo: string }) {
+export function SeccionNodos({
+  nodos,
+  titulo,
+  excluirHijos
+}: {
+  nodos: Nodo[];
+  titulo: string;
+  /** Nombres locales de hijos que no se recorren (para no repetir tablas ya mostradas aparte). */
+  excluirHijos?: string[];
+}) {
   if (!nodos.length) return null;
 
   // columnas = unión de los atributos de todos los nodos hermanos
@@ -51,6 +60,7 @@ export function SeccionNodos({ nodos, titulo }: { nodos: Nodo[]; titulo: string 
         // hijos agrupados por nombre, respetando el orden del XML
         const grupos: { nombre: string; nodos: Nodo[] }[] = [];
         n.hijos.forEach((h) => {
+          if (excluirHijos && excluirHijos.indexOf(h.local) !== -1) return;
           let g = grupos.filter((x) => x.nombre === h.nombre)[0];
           if (!g) {
             g = { nombre: h.nombre, nodos: [] };

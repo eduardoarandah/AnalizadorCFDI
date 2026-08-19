@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import { Tabla } from './Tabla.tsx';
+import { TablasImpuestos } from './TablasImpuestos.tsx';
 import type { Columna, GrupoResumen, ValorCelda } from '../lib/types.ts';
 
 function suma<T extends object>(filas: T[], clave: keyof T): number {
@@ -10,27 +11,35 @@ function filas<T>(arr: T[]): Record<string, ValorCelda>[] {
   return arr as unknown as Record<string, ValorCelda>[];
 }
 
-function TablasImpuestos({ titulo, filas: datos }: { titulo: string; filas: GrupoResumen['traslados'] }) {
-  const cols: Columna[] = [
-    { clave: 'impuesto', titulo: 'Impuesto' },
-    { clave: 'nombreImpuesto', titulo: 'Nombre' },
-    { clave: 'tipoFactor', titulo: 'Tipo factor' },
-    { clave: 'tasa', titulo: 'Tasa o cuota' },
-    { clave: 'veces', titulo: 'Partidas', tipo: 'cantidad' },
-    { clave: 'base', titulo: 'Base', tipo: 'moneda' },
-    { clave: 'importe', titulo: 'Importe', tipo: 'moneda' }
-  ];
+const COLUMNAS_CONCEPTOS: Columna[] = [
+  { clave: 'claveProdServ', titulo: 'ClaveProdServ' },
+  { clave: 'noIdentificacion', titulo: 'NoIdentificacion' },
+  { clave: 'descripcion', titulo: 'Descripción', largo: true },
+  { clave: 'claveUnidad', titulo: 'ClaveUnidad' },
+  { clave: 'unidad', titulo: 'Unidad' },
+  { clave: 'veces', titulo: 'Partidas', tipo: 'cantidad' },
+  { clave: 'cantidad', titulo: 'Cantidad', tipo: 'cantidad' },
+  { clave: 'importe', titulo: 'Importe', tipo: 'moneda' },
+  { clave: 'descuento', titulo: 'Descuento', tipo: 'moneda' },
+  { clave: 'trasladados', titulo: 'Trasladados', tipo: 'moneda' },
+  { clave: 'retenidos', titulo: 'Retenidos', tipo: 'moneda' }
+];
+
+function TablaConceptos({ datos }: { datos: GrupoResumen['conceptos'] }) {
   if (!datos.length) return null;
   return (
     <Tabla
-      titulo={titulo}
-      columnas={cols}
+      titulo="Conceptos"
+      columnas={COLUMNAS_CONCEPTOS}
       filas={filas(datos)}
       filaTotales={{
-        impuesto: 'TOTAL',
+        claveProdServ: 'TOTAL',
         veces: suma(datos, 'veces'),
-        base: suma(datos, 'base'),
-        importe: suma(datos, 'importe')
+        cantidad: suma(datos, 'cantidad'),
+        importe: suma(datos, 'importe'),
+        descuento: suma(datos, 'descuento'),
+        trasladados: suma(datos, 'trasladados'),
+        retenidos: suma(datos, 'retenidos')
       }}
     />
   );
@@ -87,6 +96,8 @@ export function ResumenGrupo({ grupo: g }: { grupo: GrupoResumen }) {
           ({g.tipo}) — {g.cantidad} comprobante{g.cantidad === 1 ? '' : 's'}
         </small>
       </h3>
+
+      <TablaConceptos datos={g.conceptos} />
 
       {esPago ? null : (
         <Fragment>
