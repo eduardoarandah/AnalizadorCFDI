@@ -3,7 +3,7 @@ import { moneda, cantidad } from '../lib/formato.ts';
 import { BotonCopiar } from './BotonCopiar.tsx';
 import type { Columna, ValorCelda } from '../lib/types.ts';
 
-const LARGO_TRUNCADO = 40;
+const LARGO_TRUNCADO = 8;
 
 function CeldaValor({ mostrado, truncar }: { mostrado: string | number; truncar?: boolean }) {
   const [expandido, setExpandido] = useState(false);
@@ -118,7 +118,7 @@ export function Tabla({ columnas, filas, filaTotales, titulo, claseTitulo }: Tab
         {titulo}
       </div>
       <div className="overflow-x-auto">
-        <table ref={ref} className="w-auto max-w-full border-collapse">
+        <table ref={ref} className="w-auto max-w-full border-collapse text-sm">
           {cuerpo}
         </table>
       </div>

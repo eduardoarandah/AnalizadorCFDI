@@ -48,7 +48,7 @@ export function App() {
   const grupos = resumenGlobal(cfdis);
 
   return (
-    <div className="mx-auto max-w-[2400px] px-8">
+    <div className="mx-auto px-8">
       <h1 className="mb-4 mt-8 text-5xl font-bold">Analizador CFDIs privado</h1>
 
       <p className="mb-6 inline-block rounded border border-l-4 border-green-600 bg-green-50 px-5 py-3 text-base text-green-800">

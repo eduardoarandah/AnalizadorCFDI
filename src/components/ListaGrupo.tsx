@@ -147,7 +147,7 @@ export function ListaGrupo({ grupo: g }: { grupo: import('../lib/types.ts').Grup
                       return (
                         <td
                           key={c.clave}
-                          className={`whitespace-nowrap px-3 py-2 align-top ${c.tipo ? 'text-right' : ''}`}
+                          className={`max-w-xs p-2 align-top ${c.tipo ? 'text-right' : ''}`}
                           data-valor={v === undefined ? '' : (v as string | number)}
                         >
                           {mostrado as string | number}
