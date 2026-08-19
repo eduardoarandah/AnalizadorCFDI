@@ -11,7 +11,6 @@ const COLUMNAS_FACTURA: Columna[] = [
   { clave: 'emisorNombre', titulo: 'Emisor' },
   { clave: 'receptorRfc', titulo: 'RFC receptor' },
   { clave: 'receptorNombre', titulo: 'Receptor' },
-  { clave: 'moneda', titulo: 'Moneda' },
   { clave: 'numConceptos', titulo: 'Conceptos', tipo: 'cantidad' },
   { clave: 'subTotal', titulo: 'SubTotal', tipo: 'moneda' },
   { clave: 'descuento', titulo: 'Descuento', tipo: 'moneda' },
@@ -67,7 +66,6 @@ function filaLista(cfdi: CFDI): Record<string, ValorCelda> {
     base.trasladados = trasP;
     base.retenidos = retP;
   } else {
-    base.moneda = cfdi.moneda;
     base.numConceptos = cfdi.conceptos.length;
     base.subTotal = cfdi.subTotal;
     base.descuento = cfdi.descuento;

@@ -47,7 +47,6 @@ const CLASE_TD_CORTA = 'whitespace-nowrap';
 export interface TablaProps {
   columnas: Columna[];
   filas: Record<string, ValorCelda>[];
-  vertical?: boolean;
   filaTotales?: Record<string, ValorCelda>;
   titulo: string;
   claseTitulo?: 'titulo-nodo' | 'titulo-tabla';
@@ -58,84 +57,60 @@ export interface TablaProps {
  * filas: objetos con las claves de las columnas (cada valor puede ser
  * {valor, texto} para mostrar algo distinto a lo que se copia)
  */
-export function Tabla({ columnas, filas, vertical, filaTotales, titulo, claseTitulo }: TablaProps) {
+export function Tabla({ columnas, filas, filaTotales, titulo, claseTitulo }: TablaProps) {
   const ref = useRef<HTMLTableElement>(null);
   if (!filas.length) return null;
 
-  let cuerpo;
-  if (vertical) {
-    const fila = filas[0];
-    cuerpo = (
-      <tbody>
-        {columnas.map((col) => {
-          const c = celda(fila, col);
-          return (
-            <tr key={col.clave} className="even:bg-gray-50">
-              <th className={`${CLASE_TD} ${CLASE_TD_CORTA} w-px text-left font-semibold`}>{col.titulo}</th>
-              <td
-                className={`${CLASE_TD} ${col.largo || col.truncar ? CLASE_TD_LARGA : CLASE_TD_CORTA} ${numerica(col) ? 'text-right' : ''}`}
-                data-valor={c.crudo}
-                title={col.largo ? c.crudo : undefined}
-              >
-                <CeldaValor mostrado={c.mostrado} truncar={col.truncar} />
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    );
-  } else {
-    cuerpo = (
-      <Fragment>
-        <thead>
-          <tr className="border-b-2 border-gray-400 text-left">
-            {columnas.map((col) => (
-              <th key={col.clave} className={`${CLASE_TD} ${CLASE_TD_CORTA} ${numerica(col) ? 'text-right' : ''}`}>
-                {col.titulo}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {filas.map((fila, i) => (
-            <tr key={i} className="even:bg-gray-50">
-              {columnas.map((col) => {
-                const c = celda(fila, col);
-                return (
-                  <td
-                    key={col.clave}
-                    className={`${CLASE_TD} ${col.largo || col.truncar ? CLASE_TD_LARGA : CLASE_TD_CORTA} ${numerica(col) ? 'text-right' : ''}`}
-                    data-valor={c.crudo}
-                    title={col.largo ? c.crudo : undefined}
-                  >
-                    <CeldaValor mostrado={c.mostrado} truncar={col.truncar} />
-                  </td>
-                );
-              })}
-            </tr>
+  const cuerpo = (
+    <Fragment>
+      <thead>
+        <tr className="border-b-2 border-gray-400 text-left">
+          {columnas.map((col) => (
+            <th key={col.clave} className={`${CLASE_TD} ${CLASE_TD_CORTA} ${numerica(col) ? 'text-right' : ''}`}>
+              {col.titulo}
+            </th>
           ))}
-          {filaTotales ? (
-            <tr className="fila-totales border-t-2 border-gray-400 bg-gray-100">
-              {columnas.map((col) => {
-                const v = filaTotales[col.clave];
-                const mostrado =
-                  v === undefined ? '' : col.tipo === 'moneda' ? moneda(v as number) : col.tipo === 'cantidad' ? cantidad(v as number) : v;
-                return (
-                  <td
-                    key={col.clave}
-                    className={`${CLASE_TD} ${CLASE_TD_CORTA} ${numerica(col) ? 'text-right' : ''}`}
-                    data-valor={v === undefined ? '' : (v as string | number)}
-                  >
-                    <strong>{mostrado as string | number}</strong>
-                  </td>
-                );
-              })}
-            </tr>
-          ) : null}
-        </tbody>
-      </Fragment>
-    );
-  }
+        </tr>
+      </thead>
+      <tbody>
+        {filas.map((fila, i) => (
+          <tr key={i} className="even:bg-gray-50">
+            {columnas.map((col) => {
+              const c = celda(fila, col);
+              return (
+                <td
+                  key={col.clave}
+                  className={`${CLASE_TD} ${col.largo || col.truncar ? CLASE_TD_LARGA : CLASE_TD_CORTA} ${numerica(col) ? 'text-right' : ''}`}
+                  data-valor={c.crudo}
+                  title={col.largo ? c.crudo : undefined}
+                >
+                  <CeldaValor mostrado={c.mostrado} truncar={col.truncar} />
+                </td>
+              );
+            })}
+          </tr>
+        ))}
+        {filaTotales ? (
+          <tr className="fila-totales border-t-2 border-gray-400 bg-gray-100">
+            {columnas.map((col) => {
+              const v = filaTotales[col.clave];
+              const mostrado =
+                v === undefined ? '' : col.tipo === 'moneda' ? moneda(v as number) : col.tipo === 'cantidad' ? cantidad(v as number) : v;
+              return (
+                <td
+                  key={col.clave}
+                  className={`${CLASE_TD} ${CLASE_TD_CORTA} ${numerica(col) ? 'text-right' : ''}`}
+                  data-valor={v === undefined ? '' : (v as string | number)}
+                >
+                  <strong>{mostrado as string | number}</strong>
+                </td>
+              );
+            })}
+          </tr>
+        ) : null}
+      </tbody>
+    </Fragment>
+  );
 
   return (
     <div className="mb-8">
@@ -143,7 +118,7 @@ export function Tabla({ columnas, filas, vertical, filaTotales, titulo, claseTit
         {titulo}
       </div>
       <div className="overflow-x-auto">
-        <table ref={ref} className={`${vertical ? 'w-full' : 'w-auto max-w-full'} border-collapse`}>
+        <table ref={ref} className="w-auto max-w-full border-collapse">
           {cuerpo}
         </table>
       </div>

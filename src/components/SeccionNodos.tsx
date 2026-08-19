@@ -33,7 +33,7 @@ export function SeccionNodos({ nodos, titulo }: { nodos: Nodo[]; titulo: string 
   });
   if (hayTexto) columnas.push({ clave: '__texto', titulo: 'Valor' });
 
-  const filas: Record<string, ValorCelda>[] = nodos.map((n, i) => {
+  function filaDe(n: Nodo, i: number): Record<string, ValorCelda> {
     const fila: Record<string, ValorCelda> = { __n: String(i + 1), __texto: n.texto || '' };
     const a: Record<string, string> = {};
     n.atributos.forEach((at) => { a[at.nombre] = at.valor; });
@@ -43,15 +43,10 @@ export function SeccionNodos({ nodos, titulo }: { nodos: Nodo[]; titulo: string 
       fila[k] = desc ? { valor, texto: valor + ' — ' + desc } : valor;
     });
     return fila;
-  });
-
-  const vertical = nodos.length === 1 && columnas.length > 6;
+  }
 
   return (
     <Fragment>
-      {columnas.length ? (
-        <Tabla titulo={titulo} columnas={columnas} filas={filas} vertical={vertical} claseTitulo="titulo-nodo" />
-      ) : null}
       {nodos.map((n, i) => {
         // hijos agrupados por nombre, respetando el orden del XML
         const grupos: { nombre: string; nodos: Nodo[] }[] = [];
@@ -64,9 +59,16 @@ export function SeccionNodos({ nodos, titulo }: { nodos: Nodo[]; titulo: string 
           g.nodos.push(h);
         });
         const prefijo = titulo + (nodos.length > 1 ? ' #' + (i + 1) : '');
-        return grupos.map((g) => (
-          <SeccionNodos key={prefijo + g.nombre} nodos={g.nodos} titulo={prefijo + ' › ' + g.nombre} />
-        ));
+        return (
+          <Fragment key={prefijo}>
+            {columnas.length ? (
+              <Tabla titulo={titulo} columnas={columnas} filas={[filaDe(n, i)]} claseTitulo="titulo-nodo" />
+            ) : null}
+            {grupos.map((g) => (
+              <SeccionNodos key={prefijo + g.nombre} nodos={g.nodos} titulo={prefijo + ' › ' + g.nombre} />
+            ))}
+          </Fragment>
+        );
       })}
     </Fragment>
   );

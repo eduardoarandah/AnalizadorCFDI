@@ -106,14 +106,14 @@ export function App() {
             </button>
           </div>
 
-          <h2 className="mb-6 mt-12 border-b-[3px] border-gray-800 pb-2 text-2xl">Resumen</h2>
-          {grupos.map((g) => (
-            <ResumenGrupo key={g.tipo} grupo={g} />
-          ))}
-
           <h2 className="mb-6 mt-12 border-b-[3px] border-gray-800 pb-2 text-2xl">Comprobantes</h2>
           {grupos.map((g) => (
             <ListaGrupo key={g.tipo} grupo={g} />
+          ))}
+
+          <h2 className="mb-6 mt-12 border-b-[3px] border-gray-800 pb-2 text-2xl">Resumen</h2>
+          {grupos.map((g) => (
+            <ResumenGrupo key={g.tipo} grupo={g} />
           ))}
         </Fragment>
       ) : null}

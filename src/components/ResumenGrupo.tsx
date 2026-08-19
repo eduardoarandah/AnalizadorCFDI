@@ -117,33 +117,6 @@ export function ResumenGrupo({ grupo: g }: { grupo: GrupoResumen }) {
           <TablasImpuestos titulo="Impuestos retenidos" filas={g.retenciones} />
           <TablaLocales titulo="Impuestos locales trasladados" filas={g.localesTraslados} />
           <TablaLocales titulo="Impuestos locales retenidos" filas={g.localesRetenciones} />
-
-          <Tabla
-            titulo="Conceptos agrupados"
-            columnas={[
-              { clave: 'claveProdServ', titulo: 'ClaveProdServ' },
-              { clave: 'noIdentificacion', titulo: 'NoIdentificacion' },
-              { clave: 'descripcion', titulo: 'Descripción', largo: true },
-              { clave: 'claveUnidad', titulo: 'ClaveUnidad' },
-              { clave: 'unidad', titulo: 'Unidad' },
-              { clave: 'veces', titulo: 'Partidas', tipo: 'cantidad' },
-              { clave: 'cantidad', titulo: 'Cantidad', tipo: 'cantidad' },
-              { clave: 'importe', titulo: 'Importe', tipo: 'moneda' },
-              { clave: 'descuento', titulo: 'Descuento', tipo: 'moneda' },
-              { clave: 'trasladados', titulo: 'Trasladados', tipo: 'moneda' },
-              { clave: 'retenidos', titulo: 'Retenidos', tipo: 'moneda' }
-            ]}
-            filas={filas(g.conceptos)}
-            filaTotales={{
-              claveProdServ: 'TOTAL',
-              veces: suma(g.conceptos, 'veces'),
-              cantidad: suma(g.conceptos, 'cantidad'),
-              importe: suma(g.conceptos, 'importe'),
-              descuento: suma(g.conceptos, 'descuento'),
-              trasladados: suma(g.conceptos, 'trasladados'),
-              retenidos: suma(g.conceptos, 'retenidos')
-            }}
-          />
         </Fragment>
       )}
 
