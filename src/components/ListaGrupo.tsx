@@ -105,7 +105,7 @@ export function ListaGrupo({ grupo: g }: { grupo: import('../lib/types.ts').Grup
         {g.nombreTipo} ({g.tipo}) — {g.cantidad} comprobante{g.cantidad === 1 ? '' : 's'}
       </div>
       <div className="overflow-x-auto">
-        <table ref={ref} className="w-auto max-w-full border-collapse">
+        <table ref={ref} className="w-auto max-w-full border-collapse text-sm">
           <thead>
             <tr className="border-b-2 border-gray-400 text-left">
               <th className="no-copiar whitespace-nowrap px-3 py-2">Detalle</th>
@@ -135,7 +135,15 @@ export function ListaGrupo({ grupo: g }: { grupo: import('../lib/types.ts').Grup
                     {columnas.map((c) => {
                       const v = fila[c.clave];
                       const mostrado =
-                        c.tipo === 'moneda' ? moneda(v as number) : c.tipo === 'cantidad' ? cantidad(v as number) : v === undefined ? '' : v;
+                        c.tipo === 'moneda'
+                          ? moneda(v as number)
+                          : c.tipo === 'cantidad'
+                            ? cantidad(v as number)
+                            : v === undefined
+                              ? ''
+                              : c.clave === 'fecha'
+                                ? (v as string).split(' ')[0]
+                                : v;
                       return (
                         <td
                           key={c.clave}
